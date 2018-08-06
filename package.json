@@ -1,7 +1,12 @@
 {
-  "name": "$name$",
-  "version": "$version$",
+  "name": "dash-button",
+  "version": "1.0.0",
+  "description": "Launch deploy on deployhq with last revision",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    $END$
+    "github-api": "^3.0.0",
+    "node-dash-button": "^0.6.1"
   }
 }

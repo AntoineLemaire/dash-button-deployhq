@@ -1,0 +1,20 @@
+{
+  "dash":{
+    "mac_address":"19:72:a1:b5:21:e1"
+  },
+  "github":{
+    "username":"YourName",
+    "oauth_token":"your-oauth-token",
+    "deploy_repository_username": "username"
+    "deploy_repository_name": "name",
+    "branch": "master"
+  },
+  "deploy_hq":{
+    "user":"username@mail.org",
+    "api_key":"",
+    "url":"yourproject.deployhq.com",
+    "project_id":"your-project-id",
+	"parent_identifier": "server-identifier",
+	"branch": "master"
+  }
+}
