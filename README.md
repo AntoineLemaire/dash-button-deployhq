@@ -2,7 +2,13 @@
 
 ## Installation
 
+```
+sudo apt-get install libpcap0.8-dev
+npm install
+```
+
 Copy `parameters.json.dist` to `parameters.json` with your own parameters
+
 Run `node index.js`
 
 ## Configuration
@@ -10,7 +16,8 @@ Run `node index.js`
 ### Dash Button
 
 Configure the Dash Button Wifi, but don't associate it with a Amazon product. Leave the configuration workflow before that.
-Get the Dash Button MAC address 
+
+Get the Dash Button MAC address:
 
 Run `sudo node bin/findbutton` and push the button. MAC address will appear (be sure you're on the same network).
 
