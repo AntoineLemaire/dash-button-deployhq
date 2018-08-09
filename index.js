@@ -12,7 +12,7 @@ if (params.hasOwnProperty('pushbullet')){
 var dash = dashButton(params.dash.mac_address, null, null, 'all');
 
 dash.on('detected', function () {
-    console.log(new Date() + ' : Une pression sur le Dash Button a été détectée.');
+    console.log(new Date() + ': Pressure on the Dash Button has been detected.');
 
     // basic auth
     var gh = new GitHub({
@@ -29,7 +29,7 @@ dash.on('detected', function () {
 
 });
 
-console.log('En attente de pression du Dash Button');
+console.log('Awaiting action from the Dash Button');
 
 function processDeployHQ(end_revision)
 {
@@ -98,14 +98,14 @@ function deploy(start_revision, end_revision)
     };
 
     // Set up the request
-    var post_req = https.request(post_options, function() {
+    var post_req = https.request(post_options, function(response) {
         if (typeof pusher !== 'undefined') {
-            pusher.note({}, 'Dash button deploy', 'Le deploy a été lancé', function (error, response) {
+            pusher.note({}, 'Dash button deploy', 'Deployment has successfully been launched', function (error, response) {
                 // response is the JSON response from the API
             });
         }
 
-        console.log(new Date() + ' : Le deploy a été lancé !');
+        console.log(new Date() + ' : Deployment has successfully been launched !');
     });
 
     // post the data
