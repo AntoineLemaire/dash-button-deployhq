@@ -9,13 +9,13 @@ if (params.hasOwnProperty('pushbullet')){
     var pusher = new PushBullet(params.pushbullet.api_key);
 }
 
-var dash = dashButton(params.dash.mac_address, null, null, 'all');
+let dash = dashButton(params.dash.mac_address, null, null, 'all');
 
 dash.on('detected', function () {
     console.log(new Date() + ': Pressure on the Dash Button has been detected.');
 
     // basic auth
-    var gh = new GitHub({
+    let gh = new GitHub({
         username: params.github.username,
         token: params.github.oauth_token
     });
@@ -26,7 +26,6 @@ dash.on('detected', function () {
 
         processDeployHQ(end_revision)
     });
-
 });
 
 console.log('Awaiting action from the Dash Button');
@@ -35,7 +34,7 @@ function processDeployHQ(end_revision)
 {
     // First, get the last deployment commit sha
 
-    var get_options = {
+    let get_options = {
         host: params.deploy_hq.url,
         port: 443,
         path: "/projects/" + params.deploy_hq.project_id + "/deployments",
@@ -49,15 +48,15 @@ function processDeployHQ(end_revision)
 
     var str = '';
 
-    var callbackDeployLastRevision = function (response) {
+    let callbackDeployLastRevision = function (response) {
         response.on('data', function (chunk) {
             str += chunk;
         });
 
         response.on('end', function () {
-            var deployments = JSON.parse(str);
+            let deployments = JSON.parse(str);
 
-            var start_revision = extractLastDeployCommitFromRecords(deployments.records);
+            let start_revision = extractLastDeployCommitFromRecords(deployments.records);
 
             deploy(start_revision, end_revision);
         });
@@ -72,7 +71,7 @@ function processDeployHQ(end_revision)
 
 function deploy(start_revision, end_revision)
 {
-    var post_params = JSON.stringify({
+    let post_params = JSON.stringify({
         "deployment": {
             "parent_identifier": params.deploy_hq.parent_identifier,
             "start_revision": start_revision,
@@ -84,7 +83,7 @@ function deploy(start_revision, end_revision)
         }
     });
 
-    var post_options = {
+    let post_options = {
         host: params.deploy_hq.url,
         port: 443,
         path: "/projects/" + params.deploy_hq.project_id + "/deployments",
@@ -98,14 +97,19 @@ function deploy(start_revision, end_revision)
     };
 
     // Set up the request
-    var post_req = https.request(post_options, function(response) {
-        if (typeof pusher !== 'undefined') {
-            pusher.note({}, 'Dash button deploy', 'Deployment has successfully been launched', function (error, response) {
-                // response is the JSON response from the API
-            });
+    let post_req = https.request(post_options, function(response) {
+        let message = 'Deployment has successfully been launched';
+
+        if (response.statusCode < 200 || response.statusCode > 299) {
+            message = 'An error has occured. Deployment has not been launched - [' + response.statusCode + '] ' + response.statusMessage;
         }
 
-        console.log(new Date() + ' : Deployment has successfully been launched !');
+        if (typeof pusher !== 'undefined') {
+            pusher.note({}, 'Dash button deploy', message);
+        }
+
+        console.log(new Date() + ': ' + message);
+
     });
 
     // post the data
