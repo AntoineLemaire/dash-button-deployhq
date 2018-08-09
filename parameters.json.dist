@@ -16,5 +16,8 @@
     "project_id":"your-project-id",
 	"parent_identifier": "server-identifier",
 	"branch": "master"
+  },
+  "pushbullet": {
+    "api_key": ""
   }
 }

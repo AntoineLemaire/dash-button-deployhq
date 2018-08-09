@@ -33,3 +33,7 @@ Get the parent_identifier of the server in the URL
 ![parent_identifier](https://i.imgur.com/CQKEXe2.png)
 
 API Key can be found or create in [https://yourproject.deployhq.com/security](https://yourproject.deployhq.com/security)
+
+### Pushbullet (Optionnal)
+
+Get API Key on [https://www.pushbullet.com/#settings/account](https://www.pushbullet.com/#settings/account)

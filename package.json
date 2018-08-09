@@ -7,6 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "github-api": "^3.0.0",
-    "node-dash-button": "^0.6.1"
+    "node-dash-button": "^0.6.1",
+    "pushbullet": "^2.2.0"
   }
 }

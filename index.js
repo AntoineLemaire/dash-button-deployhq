@@ -3,6 +3,11 @@ var GitHub     = require('github-api');
 var https      = require('https');
 var params     = require('./parameters.json');
 
+var PushBullet = require('pushbullet');
+
+if (params.hasOwnProperty('pushbullet')){
+    var pusher = new PushBullet(params.pushbullet.api_key);
+}
 
 var dash = dashButton(params.dash.mac_address, null, null, 'all');
 
@@ -94,6 +99,12 @@ function deploy(start_revision, end_revision)
 
     // Set up the request
     var post_req = https.request(post_options, function() {
+        if (typeof pusher !== 'undefined') {
+            pusher.note({}, 'Dash button deploy', 'Le deploy a été lancé', function (error, response) {
+                // response is the JSON response from the API
+            });
+        }
+
         console.log(new Date() + ' : Le deploy a été lancé !');
     });
 
